@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Product Management</title>
+    <style>
+        
+        body {
+            font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Fuente similar a la de Apple */
+            background-image: url('https://img.shetu66.com/2023/12/07/1701938787487362.png?x-oss-process=image/resize,h_800/watermark,image_d2F0ZXJtYXJrL2JhY2tncm91cDAxLnBuZw==,g_se,x_0,y_10/watermark,text_6K6-5Zu-572RIOe8luWPtzo2MjAyOTg5MjEyMDEyNDUyNzc=,type_ZmFuZ3poZW5naGVpdGk,color_FFFFFF,size_12,g_se,x_15,y_16'); /* Imagen de fondo */
+            background-size: cover; /* Cubrir todo el fondo */
+            background-position: center; /* Centrar la imagen */
+            margin: 0; /* Eliminar margen por defecto */
+            padding: 20px; /* Espaciado interno */
+            color: #333; /* Color del texto */
+        }
+        h5 {
+             text-align: center; /* Centrar el texto */
+             border: 2px solid white; /* Borde blanco */
+             font-size: 24px; /* Tamaño del texto igual al de h1 (ajustar si es necesario) */
+             padding: 10px; /* Espaciado interno para el borde */
+             margin: 20px 0; /* Espaciado vertical */
+             border-radius: 8px; /* Bordes redondeados (opcional) */
+             background-color: rgba(255, 255, 255, 0.8); /* Fondo opaco para que destaque */
+        }
+        h1 {
+            margin-bottom: 20px; /* Espacio debajo del título */
+            font-size: 24px; /* Tamaño del título */
+            text-align: center; /* Centrar el título */
+        }
+
+        /* Estilos para el recuadro de información */
+        .info-box {
+            background-color: #ffffff; /* Color de fondo del recuadro */
+            border: 1px solid #d1d1d6; /* Borde del recuadro */
+            border-radius: 12px; /* Bordes redondeados */
+            padding: 20px; /* Espaciado interno */
+            margin-bottom: 20px; /* Espacio debajo del recuadro */
+            text-align: center; /* Centrar el texto */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+
+        table {
+            width: 100%; /* Hace que la tabla ocupe todo el ancho */
+            border-collapse: collapse; /* Elimina el espacio entre las celdas */
+            margin-top: 20px; /* Espacio arriba de la tabla */
+            border-radius: 16px; /* Bordes redondeados */
+            overflow: hidden; /* Para que las celdas redondeadas no se sobresalgan */
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra más intensa */
+        }
+
+        th, td {
+            border: 1px solid #d1d1d6; /* Borde de las celdas */
+            padding: 15px; /* Espaciado interno en las celdas */
+            text-align: left; /* Alineación del texto */
+            font-size: 16px; /* Tamaño de la fuente */
+        }
+
+        th {
+            background-color: #007AFF; /* Color de fondo del encabezado */
+            color: white; /* Color del texto del encabezado */
+            font-weight: bold; /* Texto en negrita */
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(249, 249, 249, 0.8); /* Color de fondo de las filas pares con opacidad */
+        }
+
+        tr:hover {
+            background-color: rgba(225, 225, 225, 0.8); /* Color de fondo al pasar el mouse sobre una fila con opacidad */
+        }
+
+        button {
+            background-color: #007AFF; /* Color de fondo del botón */
+            color: white; /* Color del texto del botón */
+            border: none; /* Sin borde */
+            border-radius: 12px; /* Bordes redondeados */
+            padding: 10px 15px; /* Espaciado interno del botón */
+            cursor: pointer; /* Cambiar el cursor al pasar el mouse */
+            transition: background-color 0.3s; /* Transición suave */
+            font-size: 16px; /* Tamaño del texto */
+            margin-top: 10px; /* Margen superior */
+        }
+
+        button:hover {
+            background-color: #0051A1; /* Color del botón al pasar el mouse */
+        }
+
+        /* Estilos para los modales */
+        .modal {
+            display: none; /* Ocultar por defecto */
+            position: fixed; /* Mantener en la misma posición */
+            z-index: 1; /* Asegurar que esté en la parte superior */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ancho completo */
+            height: 100%; /* Alto completo */
+            overflow: auto; /* Permitir desplazamiento si es necesario */
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+        }
+
+        .modal-content {
+            background-color: #ffffff; /* Fondo blanco para el modal */
+            margin: 10% auto; /* Margen para centrar el modal */
+            padding: 20px; /* Espacio interno */
+            border-radius: 12px; /* Bordes redondeados */
+            width: 80%; /* Ancho del modal */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+
+        .modal-content h2 {
+            margin-top: 0; /* Eliminar margen superior en el título del modal */
+            color: #333; /* Color del título */
+        }
+
+        input[type="text"], input[type="number"], input[type="date"] {
+            width: calc(100% - 24px); /* Ancho de los campos de entrada */
+            padding: 10px; /* Espaciado interno */
+            margin: 10px 0; /* Espaciado vertical */
+            border: 1px solid #d1d1d6; /* Borde de los campos */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra interna */
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus {
+            border-color: #007AFF; /* Color del borde al enfocar */
+            outline: none; /* Sin contorno */
+        }
+    </style>
+    <script>
+        // Función para abrir el modal de agregar producto
+        function openAddModal() {
+            document.getElementById("addModal").style.display = "block";
+        }
+
+    // Función para abrir el modal de editar producto
+    function openEditModal(product) {
+        // Rellenar el formulario de edición con los datos del producto
+        document.getElementById("editNombre").value = product.nombre;
+        document.getElementById("editCantidad").value = product.cantidad;
+        document.getElementById("editPrecio").value = product.precio;
+        document.getElementById("editFechaVencimiento").value = product.fecha_vencimiento;
+        document.getElementById("editCategoria").value = product.categoria;
+        document.getElementById("editId").value = product.id;
+
+        // Actualiza el action del formulario para que apunte a la ruta de edición correcta
+        document.getElementById("editForm").action = `/edit/${product.id}`;
+
+        document.getElementById("editModal").style.display = "block";
+    }
+
+
+        // Función para cerrar el modal
+        function closeModal() {
+            document.getElementById("addModal").style.display = "none";
+            document.getElementById("editModal").style.display = "none";
+        }
+
+        // Cerrar el modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const addModal = document.getElementById("addModal");
+            const editModal = document.getElementById("editModal");
+            if (event.target === addModal || event.target === editModal) {
+                closeModal();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="info-box">
+        <h1>SEGUNDO PARCIAL TEM-742</h1>
+        <h3>NOMBRE: WILMER CLETO BAUTISTA LIMACHI</h3>
+        <h3>C.I.: 14485129</h3>
+    </div>
+    <h5>Gestión de Productos</h5>
+    <button onclick="openAddModal()">Nuevo Producto</button> <!-- Botón para abrir el modal de agregar -->
+
+    <!-- Modal para agregar producto -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span onclick="closeModal()" style="cursor:pointer; float:right;">&times;</span> <!-- Botón para cerrar -->
+            <h2>Agregar Nuevo Producto</h2>
+            <form action="/add" method="post">
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="number" name="cantidad" placeholder="Cantidad" required>
+                <input type="number" step="0.01" name="precio" placeholder="Precio" required>
+                <input type="date" name="fecha_vencimiento" placeholder="Fecha de Vencimiento" required>
+                <input type="text" name="categoria" placeholder="Categoría" required>
+                <button type="submit">Agregar Producto</button>
+            </form>
+        </div>
+    </div>
+
+<!-- Modal para editar producto -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" style="cursor:pointer; float:right;">&times;</span>
+        <h2>Editar Producto</h2>
+        <form id="editForm" action="" method="post"> <!-- Cambié el action a vacío inicialmente -->
+            <input type="hidden" id="editId" name="id">
+            <input type="text" id="editNombre" name="nombre" placeholder="Nombre" required>
+            <input type="number" id="editCantidad" name="cantidad" placeholder="Cantidad" required>
+            <input type="number" step="0.01" id="editPrecio" name="precio" placeholder="Precio" required>
+            <input type="date" id="editFechaVencimiento" name="fecha_vencimiento" placeholder="Fecha de Vencimiento" required>
+            <input type="text" id="editCategoria" name="categoria" placeholder="Categoría" required>
+            <button type="submit">Guardar Cambios</button>
+        </form>
+    </div>
+</div>
+
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Fecha de Vencimiento</th>
+                <th>Categoría</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product['nombre'] }}</td>
+                <td>{{ product['cantidad'] }}</td>
+                <td>{{ product['precio'] }}</td>
+                <td>{{ product['fecha_vencimiento'] }}</td>
+                <td>{{ product['categoria'] }}</td>
+                <td>
+                    <a href="javascript:void(0);" onclick='openEditModal({ "id": {{ product["id"] }}, "nombre": "{{ product["nombre"] | e }}", "cantidad": {{ product["cantidad"] }}, "precio": {{ product["precio"] }}, "fecha_vencimiento": "{{ product["fecha_vencimiento"] }}", "categoria": "{{ product["categoria"] | e }}" })'>Editar</a> 
+                </td>
+                
+                <td>
+                    <a href="/delete/{{ product['id'] }}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
